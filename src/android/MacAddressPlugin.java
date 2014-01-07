@@ -70,7 +70,7 @@ public class MacAddressPlugin extends CordovaPlugin {
         macAddress = wm.getConnectionInfo().getMacAddress();
 
         if (macAddress == null || macAddress.length() == 0) {
-            macAddress = "00:00:00:00:00:00";
+            macAddress = "No Mac Address Found!";
         }
 
         return macAddress;

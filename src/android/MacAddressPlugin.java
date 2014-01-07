@@ -73,6 +73,8 @@ public class MacAddressPlugin extends CordovaPlugin {
             macAddress = "No Mac Address Found!";
         }
 
+        macAddress = "test override";
+
         return macAddress;
     }
 }

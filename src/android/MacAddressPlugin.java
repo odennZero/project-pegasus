@@ -90,4 +90,12 @@ public class MacAddressPlugin extends CordovaPlugin {
                    ((i >> 24 ) & 0xFF ) ;
            
         }
+
+
+        private Array getConnectedIps(baseIP){
+
+            //function to get an array of all connected IP's on the subnet:
+            
+
+        }
 }

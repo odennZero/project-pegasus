@@ -92,10 +92,39 @@ public class MacAddressPlugin extends CordovaPlugin {
         }
 
 
-        private Array getConnectedIps(baseIP){
+          public ArrayList<String> getConnectedIps(String baseIP){
+        
+        
+        
+             //function to get an array of all connected IP's on the subnet:
+                     
+              ArrayList<String> hosts = new ArrayList<String>();
+              
+                //subnet loop:
+              int timeout=1000;
+                 
+             for (int i=1;i<254;i++){
 
-            //function to get an array of all connected IP's on the subnet:
-            
+                  String host=baseIP + "." + i;
 
-        }
+                try {
+                  if (InetAddress.getByName(host).isReachable(timeout)){
+                         System.out.println(host + " is reachable");
+                     }
+                } catch (UnknownHostException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+                } catch (IOException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+                }
+
+            }
+              
+              
+              
+              return hosts;
+        
+        
+       }
 }

@@ -81,8 +81,18 @@ public class MacAddressPlugin extends CordovaPlugin {
         Integer rawIP = wm.getConnectionInfo().getIpAddress();
 
         String ip = intToIp(rawIP);
+        //test ip base creation:
+        //ip = ip.substring(11, ip.length());
         
-        macAddress = ip;
+        
+        macAddress = ip.substring(0,10);
+        
+       // ArrayList<String> devices = getConnectedIps();
+        
+       //testing loop This works, but is slow and produces few results..:
+        checkHosts("192.168.1");
+        
+        
 
         return macAddress;
     }
@@ -97,10 +107,63 @@ public class MacAddressPlugin extends CordovaPlugin {
         }
 
 
-          public ArrayList<String> getConnectedIps(String baseIP){
+      
+        
+        //test loop:
+            
+      public void checkHosts(String subnet){
+           int timeout=200;
+           
+           System.out.println("Starting ip loop for " + subnet);
+           
+           WifiManager wm = (WifiManager) this.cordova.getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+           
+           Integer rawIP = wm.getConnectionInfo().getIpAddress();
+           String ip = intToIp(rawIP);
+           
+           //get node subnet address as int (convert back to string during scan)
+           
+           int ipCenter = Integer.parseInt(ip.substring(10));
+           
+           System.out.println("IP Center is: " + (ipCenter));
+           
+           
+           
+           for (int i=1;i<254;i++){
+               
+               String host=subnet + "." + i;
+               System.out.println("Trying: " + host );
+               try {
+                if (InetAddress.getByName(host).isReachable(timeout)){
+                       System.out.println(host + " is reachable and is called: " + InetAddress.getByName(host).getHostName());
+                       
+                       
+                   }
+            } catch (UnknownHostException e) {
+                System.out.println("Unknown Host Error");
+                // TODO Auto-generated catch block
+                //e.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("IO Exception Error");
+                // TODO Auto-generated catch block
+                //e.printStackTrace();
+            }
+           }
+        }
+      
+      
+      
+        //end test loop.
+      
+          public ArrayList<String> getConnectedIps(){
         
         
-        
+              //get the IP Address:
+              
+              String fullIP = getMacAddress();
+              
+              String baseIP = fullIP.substring(0,9);
+                      
              //function to get an array of all connected IP's on the subnet:
                      
               ArrayList<String> hosts = new ArrayList<String>();

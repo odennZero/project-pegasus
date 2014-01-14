@@ -39,6 +39,8 @@ public class MacAddressPlugin extends CordovaPlugin {
 
         if (action.equals("getMacAddress")) {
 
+            System.out.println("Args: " + args);
+
             String macAddress = this.getMacAddress();
 
             if (macAddress != null) {
